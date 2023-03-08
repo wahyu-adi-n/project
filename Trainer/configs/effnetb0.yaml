@@ -1,0 +1,46 @@
+output_dir: "model_checkpoint/"
+device: 'cpu'
+dataset:
+  root_dir: '../Utils/cars_dataset/'
+  augmentation:
+    rotation_range: 30
+    sharpness_factor: 2
+    distortion_scale: 0.5
+    bits: 2
+  train_csv: 'train.csv'
+  val_csv: 'val.csv'
+  test_csv: 'test.csv'
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+  
+model:
+  base: 'efficientnet_b0'
+  pretrained: true
+  input_size: [224, 224]
+  num_classes: 196
+  pretrained_path: None
+
+optimizer:
+  pretrained_path: None
+
+train:
+  batch_size: 32
+  optimizer: 'adam'
+  lr: 0.0001
+  num_epochs: 20
+
+val:
+  batch_size: 32
+
+test:
+  batch_size: 32
+
+custom_cb:
+  patience: 10
+  metric: 'recall'
+  mode: 'max'
+
+logger:
+  api_key: "ZlKuBWBHA9epZ4XIGUkNnolj8"
+  workspace: "wahyu-adi-n"
+  project_name: "vehicle_attribute_recognition"
